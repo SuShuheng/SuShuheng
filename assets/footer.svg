@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420" role="img" aria-labelledby="title desc">
+  <title id="title">Aurora Signal — animated profile footer</title>
+  <desc id="desc">An animated footer with a pulsing star, orbit rings, particles and three flowing waves.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05070D"/>
+      <stop offset="0.55" stop-color="#07121F"/>
+      <stop offset="1" stop-color="#0B1220"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5EEAD4"/>
+      <stop offset="0.5" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F8FAFC"/>
+      <stop offset="0.55" stop-color="#A7F3D0"/>
+      <stop offset="1" stop-color="#C4B5FD"/>
+      <animate attributeName="x1" values="0;1;0" dur="10s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="1;0;1" dur="10s" repeatCount="indefinite"/>
+    </linearGradient>
+    <filter id="blur16" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <filter id="blur36" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="36"/>
+    </filter>
+    <clipPath id="frame">
+      <rect width="1600" height="420" rx="34"/>
+    </clipPath>
+    <path id="wave" d="M0 320 C200 280 400 360 600 320 S1000 280 1200 320 S1400 360 1600 320 S2000 280 2200 320 S2600 360 2800 320 S3000 280 3200 320 V420 H0 Z"/>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1600" height="420" fill="url(#bg)"/>
+    <g opacity="0.42">
+      <ellipse cx="180" cy="80" rx="280" ry="140" fill="#0D9488" filter="url(#blur36)">
+        <animateTransform attributeName="transform" type="translate" values="0 0;26 14;0 0" dur="16s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="1480" cy="100" rx="260" ry="160" fill="#6D28D9" filter="url(#blur36)">
+        <animateTransform attributeName="transform" type="translate" values="0 0;-22 -12;0 0" dur="19s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
+
+    <g fill="#F8FAFC">
+      <circle cx="140" cy="70" r="1.4"><animate attributeName="opacity" values="0.1;1;0.1" dur="4s" repeatCount="indefinite"/></circle>
+      <circle cx="620" cy="48" r="1.6"><animate attributeName="opacity" values="1;0.1;1" dur="5s" repeatCount="indefinite"/></circle>
+      <circle cx="1040" cy="86" r="1.2"><animate attributeName="opacity" values="0.2;1;0.2" dur="3.3s" repeatCount="indefinite"/></circle>
+      <circle cx="1510" cy="310" r="1.5"><animate attributeName="opacity" values="1;0.2;1" dur="4.6s" repeatCount="indefinite"/></circle>
+    </g>
+
+    <g font-family="Inter, Segoe UI, system-ui, sans-serif">
+      <text x="80" y="108" fill="url(#textGrad)" font-size="46" font-weight="750" letter-spacing="-1.7">Thanks for stopping by.</text>
+      <text x="82" y="144" fill="#91A4B8" font-size="16">Build things that are useful, inspectable, and built to last.</text>
+      <line x1="82" y1="180" x2="660" y2="180" stroke="#8DD8CE" stroke-opacity="0.22"/>
+      <text x="82" y="214" fill="#64748B" font-size="10.5" font-weight="700" letter-spacing="2.2">GITHUB / NPM / PYPI / BLOG</text>
+      <text x="82" y="260" fill="#7DD3FC" font-size="10.5" font-weight="700" letter-spacing="2.2">DATA REFRESHED DAILY</text>
+    </g>
+
+    <g transform="translate(1320 166)">
+      <circle r="92" fill="#071018" fill-opacity="0.55" stroke="#5EEAD4" stroke-opacity="0.14"/>
+      <circle r="75" fill="none" stroke="url(#accent)" stroke-opacity="0.4" stroke-width="1.2" stroke-dasharray="2 10">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="14s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="54" fill="none" stroke="#8B5CF6" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="34 12">
+        <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="10s" repeatCount="indefinite"/>
+      </circle>
+      <circle r="34" fill="#0B1821" stroke="#F59E0B" stroke-opacity="0.32"/>
+      <path d="M0 -21 L6 -7 L21 -7 L9 3 L14 19 L0 10 L-14 19 L-9 3 L-21 -7 L-6 -7 Z" fill="#FCD34D" opacity="0.92">
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="2.8s" repeatCount="indefinite"/>
+      </path>
+      <circle r="8" fill="#F59E0B" opacity="0.25" filter="url(#blur16)">
+        <animate attributeName="r" values="5;14;5" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <g transform="translate(1100 256)" text-anchor="end" font-family="Inter, Segoe UI, system-ui, sans-serif">
+      <text fill="#C4B5FD" font-size="13" font-weight="600">If you find something useful,</text>
+      <text y="22" fill="#64748B" font-size="13">a star is always appreciated.</text>
+    </g>
+
+    <g opacity="0.75">
+      <g>
+        <use href="#wave" fill="#0D9488" fill-opacity="0.14"/>
+        <animateTransform attributeName="transform" type="translate" from="0 0" to="-1600 0" dur="12s" repeatCount="indefinite"/>
+      </g>
+      <g opacity="0.66">
+        <use href="#wave" transform="translate(0 42)" fill="#6D28D9" fill-opacity="0.16"/>
+        <animateTransform attributeName="transform" type="translate" from="-1600 42" to="0 42" dur="16s" repeatCount="indefinite"/>
+      </g>
+      <g opacity="0.9">
+        <use href="#wave" transform="translate(0 86)" fill="url(#accent)" fill-opacity="0.40"/>
+        <animateTransform attributeName="transform" type="translate" from="0 86" to="-1600 86" dur="9s" repeatCount="indefinite"/>
+      </g>
+    </g>
+  </g>
+
+  <rect x="1" y="1" width="1598" height="418" rx="33" fill="none" stroke="#FFFFFF" stroke-opacity="0.08"/>
+</svg>

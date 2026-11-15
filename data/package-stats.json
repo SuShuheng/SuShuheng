@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-15",
+  "npm": {
+    "packages": 3,
+    "monthly": 2359,
+    "total": 2755,
+    "monthly_display": "2,359",
+    "total_display": "2,755"
+  },
+  "pypi": {
+    "packages": 8,
+    "monthly": 697,
+    "total": 22883,
+    "monthly_display": "697",
+    "total_display": "22,883"
+  },
+  "combined": {
+    "packages": 11,
+    "monthly": 3056,
+    "total": 25638,
+    "monthly_display": "3,056",
+    "total_display": "25,638"
+  },
+  "packages": {
+    "dsh-budget-view": {
+      "platform": "npm",
+      "version": "0.5.0",
+      "monthly": 1223,
+      "total": 1223,
+      "monthly_display": "1,223",
+      "total_display": "1,223"
+    },
+    "dsh-thinking-effort-slide-bar": {
+      "platform": "npm",
+      "version": "1.5.8",
+      "monthly": 776,
+      "total": 1172,
+      "monthly_display": "776",
+      "total_display": "1,172"
+    },
+    "dsh-windows-acl-logon-dacl-fix": {
+      "platform": "npm",
+      "version": "0.1.0",
+      "monthly": 360,
+      "total": 360,
+      "monthly_display": "360",
+      "total_display": "360"
+    },
+    "se-cli": {
+      "platform": "pypi",
+      "version": "0.1.3",
+      "monthly": 281,
+      "total": 638,
+      "monthly_display": "281",
+      "total_display": "638"
+    },
+    "dglz": {
+      "platform": "pypi",
+      "version": "0.1.46",
+      "monthly": 195,
+      "total": 17325,
+      "monthly_display": "195",
+      "total_display": "17,325"
+    },
+    "nrdp-cli": {
+      "platform": "pypi",
+      "version": "0.1.8",
+      "monthly": 51,
+      "total": 267,
+      "monthly_display": "51",
+      "total_display": "267"
+    },
+    "btvit-cli": {
+      "platform": "pypi",
+      "version": "0.2.8",
+      "monthly": 40,
+      "total": 2302,
+      "monthly_display": "40",
+      "total_display": "2,302"
+    },
+    "jwztumor": {
+      "platform": "pypi",
+      "version": "1.0.30",
+      "monthly": 39,
+      "total": 1587,
+      "monthly_display": "39",
+      "total_display": "1,587"
+    },
+    "btsp-cli": {
+      "platform": "pypi",
+      "version": "0.1.0",
+      "monthly": 31,
+      "total": 163,
+      "monthly_display": "31",
+      "total_display": "163"
+    },
+    "eip-cli": {
+      "platform": "pypi",
+      "version": "1.0.8",
+      "monthly": 30,
+      "total": 253,
+      "monthly_display": "30",
+      "total_display": "253"
+    },
+    "obshare-cli": {
+      "platform": "pypi",
+      "version": "0.2.2",
+      "monthly": 30,
+      "total": 348,
+      "monthly_display": "30",
+      "total_display": "348"
+    }
+  }
+}

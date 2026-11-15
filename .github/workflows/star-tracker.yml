@@ -1,0 +1,35 @@
+name: Track Stars
+
+on:
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check tracker token
+        id: token
+        env:
+          STAR_TRACKER_TOKEN: ${{ secrets.STAR_TRACKER_TOKEN }}
+        run: |
+          if [ -n "$STAR_TRACKER_TOKEN" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::STAR_TRACKER_TOKEN is not configured; skipping the star tracker run."
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.token.outputs.available == 'true'
+        uses: fbuireu/github-star-tracker@v1
+        with:
+          github-token: ${{ secrets.STAR_TRACKER_TOKEN }}
+          visibility: public
+          include-charts: true
+          chart-line-color: 5EEAD4
+          chart-theme: auto
+          chart-range: all
