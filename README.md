@@ -56,12 +56,11 @@ I care about work that goes beyond the demo: reproducible research code, tools t
   <img src="https://img.shields.io/badge/Obsidian-7C3AED?style=flat-square&logo=obsidian&logoColor=white" alt="Obsidian" />
 </p>
 
-## GitHub
+## How I work
 
-<p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=SuShuheng&show_icons=true&hide_border=true&theme=transparent&rank_icon=github&include_all_commits=true" alt="GitHub stats" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=SuShuheng&layout=compact&hide_border=true&theme=transparent&langs_count=8" alt="Top languages" />
-</p>
+- **Useful over impressive** — a smaller tool that fits a real workflow beats a demo that only looks good.
+- **Reproducible by default** — research code and data pipelines should be easy to inspect, rerun, and trust.
+- **Local-first when possible** — I prefer tools that keep people in control of their data.
 
 ## Writing
 
