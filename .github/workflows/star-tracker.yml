@@ -16,31 +16,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Check tracker token
-        id: token
+      - name: Refresh star history
         env:
-          STAR_TRACKER_TOKEN: ${{ secrets.STAR_TRACKER_TOKEN }}
-        run: |
-          if [ -n "$STAR_TRACKER_TOKEN" ]; then
-            echo "available=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "::warning::STAR_TRACKER_TOKEN is not configured; skipping the star tracker run."
-            echo "available=false" >> "$GITHUB_OUTPUT"
-          fi
-      - if: steps.token.outputs.available == 'true'
-        name: Refresh star history
-        env:
-          STAR_TRACKER_TOKEN: ${{ secrets.STAR_TRACKER_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/update_star_history.py
-      - if: steps.token.outputs.available == 'true'
-        name: Commit refreshed star history
+      - name: Commit refreshed star history
         run: |
-          if git diff --quiet -- data/star-events.csv data/star-history-dark.svg data/star-history-light.svg; then
+          if git diff --quiet -- data/star-history-snapshots.csv data/star-history-dark.svg data/star-history-light.svg; then
             echo "Star history is already up to date."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/star-events.csv data/star-history-dark.svg data/star-history-light.svg
+          git add data/star-history-snapshots.csv data/star-history-dark.svg data/star-history-light.svg
           git commit -m "chore: refresh star history"
           git push

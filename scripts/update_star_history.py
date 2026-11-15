@@ -10,13 +10,13 @@ from collections import Counter
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
 from urllib.request import Request, urlopen
 from xml.sax.saxutils import escape
 
 
 ROOT = Path(__file__).resolve().parents[1]
 EVENTS_PATH = ROOT / "data" / "star-events.csv"
+SNAPSHOTS_PATH = ROOT / "data" / "star-history-snapshots.csv"
 DARK_OUTPUT = ROOT / "data" / "star-history-dark.svg"
 LIGHT_OUTPUT = ROOT / "data" / "star-history-light.svg"
 USER = "SuShuheng"
@@ -125,7 +125,12 @@ def fetch_with_curl(
     result = subprocess.run(command, capture_output=True, check=False, text=True)
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip())
-    value = json.loads(result.stdout)
+    try:
+        value = json.loads(result.stdout)
+    except json.JSONDecodeError as error:
+        raise RuntimeError(
+            f"Invalid JSON response from {url}: {result.stdout[:300]}"
+        ) from error
     return value if isinstance(value, list) else []
 
 
@@ -143,7 +148,7 @@ def github_json(
         return fetch_with_curl(url, token, accept)
 
 
-def fetch_star_events(token: str) -> list[dict[str, str]]:
+def fetch_public_star_total(token: str | None) -> int:
     repos: list[dict] = []
     page = 1
     while True:
@@ -156,35 +161,11 @@ def fetch_star_events(token: str) -> list[dict[str, str]]:
             break
         page += 1
 
-    events: list[dict[str, str]] = []
-    for repo in repos:
-        if repo.get("private") or int(repo.get("stargazers_count", 0)) == 0:
-            continue
-        repo_name = repo["name"]
-        page = 1
-        while True:
-            rows = github_json(
-                f"{API_BASE}/repos/{USER}/{quote(repo_name)}/stargazers"
-                f"?per_page=100&page={page}",
-                token,
-                accept="application/vnd.github.star+json",
-            )
-            for row in rows:
-                events.append(
-                    {
-                        "Repo": repo_name,
-                        "StarredAt": row["starred_at"],
-                        "User": row["user"]["login"],
-                    }
-                )
-            if len(rows) < 100:
-                break
-            page += 1
-            time.sleep(0.3)
-
-    if not events:
-        raise RuntimeError("GitHub returned no public star events")
-    return sorted(events, key=lambda row: row["StarredAt"])
+    return sum(
+        int(repo.get("stargazers_count", 0))
+        for repo in repos
+        if not repo.get("private")
+    )
 
 
 def read_events() -> list[dict[str, str]]:
@@ -192,12 +173,40 @@ def read_events() -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
-def write_events(events: list[dict[str, str]]) -> None:
-    EVENTS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with EVENTS_PATH.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["Repo", "StarredAt", "User"])
+def seed_snapshots(events: list[dict[str, str]]) -> list[tuple[date, int]]:
+    counts = Counter(
+        date.fromisoformat(row["StarredAt"][:10]) for row in events
+    )
+    points: list[tuple[date, int]] = []
+    total = 0
+    for event_date in sorted(counts):
+        total += counts[event_date]
+        points.append((event_date, total))
+    return points
+
+
+def read_snapshots() -> list[tuple[date, int]]:
+    if not SNAPSHOTS_PATH.exists():
+        return seed_snapshots(read_events())
+    with SNAPSHOTS_PATH.open(encoding="utf-8", newline="") as handle:
+        return sorted(
+            (
+                date.fromisoformat(row["Date"]),
+                int(row["TotalStars"]),
+            )
+            for row in csv.DictReader(handle)
+        )
+
+
+def write_snapshots(points: list[tuple[date, int]]) -> None:
+    SNAPSHOTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with SNAPSHOTS_PATH.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=["Date", "TotalStars"])
         writer.writeheader()
-        writer.writerows(events)
+        writer.writerows(
+            {"Date": day.isoformat(), "TotalStars": total}
+            for day, total in points
+        )
 
 
 def month_labels(first_day: date, last_day: date) -> list[tuple[date, str]]:
@@ -218,17 +227,9 @@ def month_labels(first_day: date, last_day: date) -> list[tuple[date, str]]:
     return [(day, day.strftime("%b")) for day in selected]
 
 
-def render(events: list[dict[str, str]], theme_name: str) -> str:
+def render(points: list[tuple[date, int]], theme_name: str) -> str:
     theme = THEMES[theme_name]
-    counts = Counter(
-        date.fromisoformat(row["StarredAt"][:10]) for row in events
-    )
-    points: list[tuple[date, int]] = []
-    total = 0
-    for event_date in sorted(counts):
-        total += counts[event_date]
-        points.append((event_date, total))
-
+    total = points[-1][1]
     today = datetime.now(timezone.utc).date()
     first_day = points[0][0]
     last_day = max(today, points[-1][0])
@@ -331,16 +332,26 @@ def render(events: list[dict[str, str]], theme_name: str) -> str:
 
 
 def main() -> None:
-    token = os.environ.get("STAR_TRACKER_TOKEN", "").strip()
-    if token:
-        events = fetch_star_events(token)
-        write_events(events)
+    today = datetime.now(timezone.utc).date()
+    points = read_snapshots()
+    token = os.environ.get("GITHUB_TOKEN", "").strip() or None
+    try:
+        current_total = fetch_public_star_total(token)
+    except RuntimeError as error:
+        print(f"Warning: keeping the latest saved star count: {error}")
     else:
-        events = read_events()
+        points = [
+            (day, total)
+            for day, total in points
+            if day != today
+        ]
+        points.append((today, current_total))
+        points.sort()
+    write_snapshots(points)
 
     DARK_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    DARK_OUTPUT.write_text(render(events, "dark"), encoding="utf-8")
-    LIGHT_OUTPUT.write_text(render(events, "light"), encoding="utf-8")
+    DARK_OUTPUT.write_text(render(points, "dark"), encoding="utf-8")
+    LIGHT_OUTPUT.write_text(render(points, "light"), encoding="utf-8")
 
 
 if __name__ == "__main__":
