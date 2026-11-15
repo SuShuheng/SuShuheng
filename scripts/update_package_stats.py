@@ -14,6 +14,8 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "package-stats.json"
 USER_AGENT = "SuShuheng-profile-metrics/1.0"
+PYPI_REQUEST_INTERVAL = 2.5
+_last_pypi_request = 0.0
 
 PACKAGES = [
     ("dsh-budget-view", "npm"),
@@ -30,17 +32,25 @@ PACKAGES = [
 ]
 
 
-def fetch_json(url: str, attempts: int = 4) -> dict:
+def fetch_json(url: str, attempts: int = 5) -> dict:
     last_error: Exception | None = None
     for attempt in range(attempts):
         try:
             request = Request(url, headers={"User-Agent": USER_AGENT})
             with urlopen(request, timeout=45) as response:
                 return json.load(response)
-        except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as error:
+        except HTTPError as error:
+            last_error = error
+            if error.code == 429:
+                retry_after = error.headers.get("Retry-After")
+                delay = float(retry_after) if retry_after and retry_after.isdigit() else 8.0
+                time.sleep(delay * (attempt + 1))
+            elif attempt + 1 < attempts:
+                time.sleep(2.0 * (attempt + 1))
+        except (URLError, TimeoutError, json.JSONDecodeError) as error:
             last_error = error
             if attempt + 1 < attempts:
-                time.sleep(1.5 * (attempt + 1))
+                time.sleep(2.0 * (attempt + 1))
     curl = shutil.which("curl")
     if curl:
         result = subprocess.run(
@@ -64,6 +74,17 @@ def fetch_json(url: str, attempts: int = 4) -> dict:
             return json.loads(result.stdout)
         last_error = RuntimeError(result.stderr.strip())
     raise RuntimeError(f"Unable to fetch {url}: {last_error}")
+
+
+def fetch_pypi_stats(url: str) -> dict:
+    global _last_pypi_request
+    delay = PYPI_REQUEST_INTERVAL - (time.monotonic() - _last_pypi_request)
+    if delay > 0:
+        time.sleep(delay)
+    try:
+        return fetch_json(url)
+    finally:
+        _last_pypi_request = time.monotonic()
 
 
 def display_number(value: int) -> str:
@@ -102,23 +123,26 @@ def npm_stats(package: str, today: date) -> dict:
     }
 
 
-def pypi_stats(package: str) -> dict:
+def pypi_stats(package: str, today: date) -> dict:
     metadata = fetch_json(f"https://pypi.org/pypi/{quote(package)}/json")
-    recent = fetch_json(
-        f"https://pypistats.org/api/packages/{quote(package)}/recent"
-    )
-    overall = fetch_json(
+    overall = fetch_pypi_stats(
         f"https://pypistats.org/api/packages/{quote(package)}/overall"
     )
+    month_start = (today - timedelta(days=29)).isoformat()
     total = sum(
         int(row["downloads"])
         for row in overall["data"]
         if row["category"] == "without_mirrors"
     )
+    monthly = sum(
+        int(row["downloads"])
+        for row in overall["data"]
+        if row["category"] == "without_mirrors" and row["date"] >= month_start
+    )
     return {
         "platform": "pypi",
         "version": metadata["info"]["version"],
-        "monthly": int(recent["data"]["last_month"]),
+        "monthly": monthly,
         "total": total,
     }
 
@@ -130,7 +154,7 @@ def main() -> None:
         packages[package] = (
             npm_stats(package, today)
             if platform == "npm"
-            else pypi_stats(package)
+            else pypi_stats(package, today)
         )
         packages[package]["monthly_display"] = display_number(
             packages[package]["monthly"]

@@ -10,16 +10,16 @@
   },
   "pypi": {
     "packages": 8,
-    "monthly": 697,
+    "monthly": 689,
     "total": 22883,
-    "monthly_display": "697",
+    "monthly_display": "689",
     "total_display": "22,883"
   },
   "combined": {
     "packages": 11,
-    "monthly": 3056,
+    "monthly": 3048,
     "total": 25638,
-    "monthly_display": "3,056",
+    "monthly_display": "3,048",
     "total_display": "25,638"
   },
   "packages": {
@@ -58,9 +58,9 @@
     "dglz": {
       "platform": "pypi",
       "version": "0.1.46",
-      "monthly": 195,
+      "monthly": 190,
       "total": 17325,
-      "monthly_display": "195",
+      "monthly_display": "190",
       "total_display": "17,325"
     },
     "nrdp-cli": {
@@ -74,9 +74,9 @@
     "btvit-cli": {
       "platform": "pypi",
       "version": "0.2.8",
-      "monthly": 40,
+      "monthly": 39,
       "total": 2302,
-      "monthly_display": "40",
+      "monthly_display": "39",
       "total_display": "2,302"
     },
     "jwztumor": {
@@ -90,17 +90,17 @@
     "btsp-cli": {
       "platform": "pypi",
       "version": "0.1.0",
-      "monthly": 31,
+      "monthly": 30,
       "total": 163,
-      "monthly_display": "31",
+      "monthly_display": "30",
       "total_display": "163"
     },
     "eip-cli": {
       "platform": "pypi",
       "version": "1.0.8",
-      "monthly": 30,
+      "monthly": 29,
       "total": 253,
-      "monthly_display": "30",
+      "monthly_display": "29",
       "total_display": "253"
     },
     "obshare-cli": {
