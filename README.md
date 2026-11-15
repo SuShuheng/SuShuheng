@@ -32,7 +32,7 @@ I build practical AI systems across **medical imaging**, **agentic tooling**, an
     </td>
     <td width="63%" valign="top">
       <a href="https://github.com/SuShuheng">
-        <img src="https://ghchart.rshah.org/5EEAD4/SuShuheng" alt="Contribution heatmap" width="100%" />
+        <img src="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/contribution-heatmap.svg" alt="GitHub contribution heatmap in dark theme" width="100%" />
       </a>
     </td>
   </tr>
