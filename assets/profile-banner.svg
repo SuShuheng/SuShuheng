@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title description">
+  <title id="title">GuoFan Zhang — Medical Imaging, AI Agents, and Developer Tools</title>
+  <desc id="description">A dark blue banner with a teal signal line, network nodes, and the text GuoFan Zhang.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07101F"/>
+      <stop offset="0.55" stop-color="#0A1730"/>
+      <stop offset="1" stop-color="#0B1D2D"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2DD4BF" stop-opacity="0"/>
+      <stop offset="0.22" stop-color="#2DD4BF"/>
+      <stop offset="0.58" stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#818CF8" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#93C5FD" stroke-width="1" opacity="0.08"/>
+    </pattern>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="320" rx="28" fill="url(#background)"/>
+  <rect width="1200" height="320" rx="28" fill="url(#grid)"/>
+  <ellipse cx="210" cy="55" rx="310" ry="170" fill="#14B8A6" opacity="0.16" filter="url(#blur)"/>
+  <ellipse cx="1080" cy="265" rx="330" ry="190" fill="#3B82F6" opacity="0.16" filter="url(#blur)"/>
+
+  <g fill="none" stroke="#7DD3FC" stroke-opacity="0.18">
+    <circle cx="1020" cy="145" r="64"/>
+    <circle cx="1020" cy="145" r="112"/>
+    <circle cx="1020" cy="145" r="160"/>
+  </g>
+  <g stroke="#7DD3FC" stroke-opacity="0.36" stroke-width="1.2">
+    <path d="M1020 145 L1108 83"/>
+    <path d="M1020 145 L1118 178"/>
+    <path d="M1020 145 L956 224"/>
+    <path d="M1020 145 L902 126"/>
+    <path d="M1108 83 L1118 178"/>
+    <path d="M902 126 L956 224"/>
+  </g>
+  <g fill="#7DD3FC">
+    <circle cx="1020" cy="145" r="5"/>
+    <circle cx="1108" cy="83" r="4"/>
+    <circle cx="1118" cy="178" r="4"/>
+    <circle cx="956" cy="224" r="4"/>
+    <circle cx="902" cy="126" r="4"/>
+  </g>
+
+  <text x="1030" y="224" text-anchor="middle" font-family="Inter, Segoe UI, system-ui, sans-serif" font-size="210" font-weight="800" fill="#FFFFFF" opacity="0.035">GZ</text>
+
+  <path d="M60 276 C130 276 132 236 182 236 C236 236 236 284 292 284 C348 284 350 236 404 236 C458 236 458 284 514 284 C570 284 572 236 626 236 C680 236 680 284 736 284 C792 284 794 236 850 236 C904 236 906 284 962 284 C1018 284 1020 236 1076 236 C1130 236 1132 276 1186 276" fill="none" stroke="url(#signal)" stroke-width="2.4" stroke-linecap="round" opacity="0.86"/>
+
+  <g font-family="Inter, Segoe UI, system-ui, sans-serif">
+    <text x="64" y="76" fill="#67E8F9" font-size="14" font-weight="600" letter-spacing="4.2">MEDICAL IMAGING  ·  AI AGENTS  ·  DEVELOPER TOOLS</text>
+    <text x="64" y="160" fill="#F8FAFC" font-size="60" font-weight="700" letter-spacing="-1.8">GuoFan Zhang</text>
+    <text x="64" y="202" fill="#C7D2E5" font-size="20" font-weight="400">I build practical AI systems for imaging, research, and knowledge workflows.</text>
+    <text x="64" y="252" fill="#8FA3BF" font-size="15" font-weight="500">github.com/SuShuheng</text>
+    <text x="242" y="252" fill="#8FA3BF" font-size="15" font-weight="500">blogs-world.sushuheng.top</text>
+  </g>
+
+  <rect x="1" y="1" width="1198" height="318" rx="27" fill="none" stroke="#FFFFFF" stroke-opacity="0.1"/>
+</svg>
