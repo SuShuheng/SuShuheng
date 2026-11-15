@@ -24,12 +24,12 @@ jobs:
         run: python scripts/update_contribution_heatmap.py
       - name: Commit refreshed heatmap
         run: |
-          if git diff --quiet -- data/contribution-heatmap.svg; then
-            echo "Contribution heatmap is already up to date."
+          if git diff --quiet -- data/contribution-heatmap.svg data/contribution-heatmap-light.svg; then
+            echo "Contribution heatmaps are already up to date."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/contribution-heatmap.svg
-          git commit -m "chore: refresh contribution heatmap"
+          git add data/contribution-heatmap.svg data/contribution-heatmap-light.svg
+          git commit -m "chore: refresh contribution heatmaps"
           git push

@@ -12,7 +12,8 @@ from xml.sax.saxutils import escape
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "data" / "contribution-heatmap.svg"
+DARK_OUTPUT = ROOT / "data" / "contribution-heatmap.svg"
+LIGHT_OUTPUT = ROOT / "data" / "contribution-heatmap-light.svg"
 USER = "SuShuheng"
 USER_AGENT = "SuShuheng-profile-metrics/1.0"
 API_URL = f"https://github-contributions-api.jogruber.de/v4/{USER}?y=last"
@@ -21,12 +22,33 @@ CELL = 10
 STEP = 13
 GRID_X = 82
 GRID_Y = 68
-LEVEL_COLORS = {
-    0: "#161b22",
-    1: "#0e4429",
-    2: "#006d32",
-    3: "#26a641",
-    4: "#39d353",
+THEMES = {
+    "dark": {
+        "card": "#0d1117",
+        "border": "#30363d",
+        "heading": "#e6edf3",
+        "label": "#8b949e",
+        "levels": {
+            0: "#161b22",
+            1: "#0e4429",
+            2: "#006d32",
+            3: "#26a641",
+            4: "#39d353",
+        },
+    },
+    "light": {
+        "card": "#ffffff",
+        "border": "#d0d7de",
+        "heading": "#1f2328",
+        "label": "#59636e",
+        "levels": {
+            0: "#ebedf0",
+            1: "#9be9a8",
+            2: "#40c463",
+            3: "#30a14e",
+            4: "#216e39",
+        },
+    },
 }
 
 
@@ -92,7 +114,8 @@ def month_labels(dates: list[date]) -> list[tuple[int, str]]:
     return labels
 
 
-def render(data: dict) -> str:
+def render(data: dict, theme_name: str) -> str:
+    theme = THEMES[theme_name]
     contributions = data["contributions"]
     total = int(data["total"]["lastYear"])
     dates = [date.fromisoformat(item["date"]) for item in contributions]
@@ -105,7 +128,7 @@ def render(data: dict) -> str:
         y = GRID_Y + row * STEP
         cells.append(
             f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" '
-            f'rx="2" fill="{LEVEL_COLORS[level]}" />'
+            f'rx="2" fill="{theme["levels"][level]}" />'
         )
 
     months = "".join(
@@ -127,7 +150,7 @@ def render(data: dict) -> str:
         x = legend_x + level * 15
         legend.append(
             f'<rect x="{x}" y="189" width="{CELL}" height="{CELL}" '
-            f'rx="2" fill="{LEVEL_COLORS[level]}" />'
+            f'rx="2" fill="{theme["levels"][level]}" />'
         )
     legend.append(
         f'<text x="{legend_x + 5 * 15 + 2}" y="199" class="muted">More</text>'
@@ -135,14 +158,14 @@ def render(data: dict) -> str:
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220" role="img" aria-labelledby="title desc">
   <title id="title">{total:,} contributions in the last year</title>
-  <desc id="desc">A GitHub dark-theme contribution calendar showing {total:,} contributions across the last year.</desc>
+  <desc id="desc">A GitHub {theme_name}-theme contribution calendar showing {total:,} contributions across the last year.</desc>
   <style>
-    .heading {{ font: 600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #e6edf3; }}
-    .label {{ font: 500 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #8b949e; }}
-    .muted {{ font: 500 10.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #8b949e; }}
+    .heading {{ font: 600 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: {theme["heading"]}; }}
+    .label {{ font: 500 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: {theme["label"]}; }}
+    .muted {{ font: 500 10.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: {theme["label"]}; }}
   </style>
   <text x="0" y="21" class="heading">{total:,} contributions in the last year</text>
-  <rect x="0.5" y="37.5" width="899" height="181" rx="6" fill="#0d1117" stroke="#30363d" />
+  <rect x="0.5" y="37.5" width="899" height="181" rx="6" fill="{theme["card"]}" stroke="{theme["border"]}" />
   {months}
   {weekdays}
   {''.join(cells)}
@@ -154,8 +177,9 @@ def render(data: dict) -> str:
 
 def main() -> None:
     data = fetch_json(API_URL)
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(render(data), encoding="utf-8")
+    DARK_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    DARK_OUTPUT.write_text(render(data, "dark"), encoding="utf-8")
+    LIGHT_OUTPUT.write_text(render(data, "light"), encoding="utf-8")
 
 
 if __name__ == "__main__":

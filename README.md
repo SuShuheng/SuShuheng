@@ -1,5 +1,9 @@
 <div align="center">
-  <img src="./assets/header.svg" alt="GuoFan Zhang — Medical imaging, AI agents, and local-first tools" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/header.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./assets/header-light.svg" />
+    <img src="./assets/header-light.svg" alt="GuoFan Zhang — Medical imaging, AI agents, and local-first tools" width="100%" />
+  </picture>
 </div>
 
 <p align="center">
@@ -24,11 +28,19 @@ I build practical AI systems across **medical imaging**, **agentic tooling**, an
 ## 01 · Live signal
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/contribution-heatmap.svg" alt="GitHub contribution heatmap in dark theme" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/contribution-heatmap.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/contribution-heatmap-light.svg" />
+    <img src="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/contribution-heatmap-light.svg" alt="GitHub contribution heatmap" width="100%" />
+  </picture>
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SuShuheng/SuShuheng/star-tracker-data/charts/star-history.svg" alt="Star history across public repositories" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/star-history-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/star-history-light.svg" />
+    <img src="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/star-history-light.svg" alt="Star history across public repositories" width="100%" />
+  </picture>
 </p>
 
 <p align="center">
@@ -104,5 +116,9 @@ I write about the things I build and learn at **[博客天地](https://blogs-wor
 </p>
 
 <div align="center">
-  <img src="./assets/footer.svg" alt="Aurora Signal — thanks for stopping by" width="100%" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/footer.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="./assets/footer-light.svg" />
+    <img src="./assets/footer-light.svg" alt="Aurora Signal — thanks for stopping by" width="100%" />
+  </picture>
 </div>
