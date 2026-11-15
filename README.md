@@ -23,20 +23,9 @@ I build practical AI systems across **medical imaging**, **agentic tooling**, an
 
 ## 01 · Live signal
 
-<table width="100%">
-  <tr>
-    <td width="37%" valign="top">
-      <a href="https://github.com/SuShuheng">
-        <img src="https://github-stats.tashif.codes/SuShuheng/stats/svg?theme=dark" alt="GitHub statistics" width="100%" />
-      </a>
-    </td>
-    <td width="63%" valign="top">
-      <a href="https://github.com/SuShuheng">
-        <img src="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/contribution-heatmap.svg" alt="GitHub contribution heatmap in dark theme" width="100%" />
-      </a>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SuShuheng/SuShuheng/main/data/contribution-heatmap.svg" alt="GitHub contribution heatmap in dark theme" width="100%" />
+</p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/SuShuheng/SuShuheng/star-tracker-data/charts/star-history.svg" alt="Star history across public repositories" width="100%" />
