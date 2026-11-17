@@ -1,26 +1,26 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-16",
+  "updated_at": "2026-11-17",
   "npm": {
     "packages": 3,
-    "monthly": 2369,
+    "monthly": 1855,
     "total": 2784,
-    "monthly_display": "2,369",
+    "monthly_display": "1,855",
     "total_display": "2,784"
   },
   "pypi": {
     "packages": 8,
-    "monthly": 643,
-    "total": 22480,
-    "monthly_display": "643",
-    "total_display": "22,480"
+    "monthly": 616,
+    "total": 22445,
+    "monthly_display": "616",
+    "total_display": "22,445"
   },
   "combined": {
     "packages": 11,
-    "monthly": 3012,
-    "total": 25264,
-    "monthly_display": "3,012",
-    "total_display": "25,264"
+    "monthly": 2471,
+    "total": 25229,
+    "monthly_display": "2,471",
+    "total_display": "25,229"
   },
   "packages": {
     "dsh-budget-view": {
@@ -34,9 +34,9 @@
     "dsh-thinking-effort-slide-bar": {
       "platform": "npm",
       "version": "1.5.8",
-      "monthly": 761,
+      "monthly": 247,
       "total": 1176,
-      "monthly_display": "761",
+      "monthly_display": "247",
       "total_display": "1,176"
     },
     "dsh-windows-acl-logon-dacl-fix": {
@@ -51,17 +51,17 @@
       "platform": "pypi",
       "version": "0.1.3",
       "monthly": 241,
-      "total": 637,
+      "total": 627,
       "monthly_display": "241",
-      "total_display": "637"
+      "total_display": "627"
     },
     "dglz": {
       "platform": "pypi",
       "version": "0.1.46",
-      "monthly": 185,
-      "total": 17134,
-      "monthly_display": "185",
-      "total_display": "17,134"
+      "monthly": 165,
+      "total": 17129,
+      "monthly_display": "165",
+      "total_display": "17,129"
     },
     "nrdp-cli": {
       "platform": "pypi",
@@ -74,25 +74,25 @@
     "btvit-cli": {
       "platform": "pypi",
       "version": "0.2.8",
-      "monthly": 39,
-      "total": 2301,
-      "monthly_display": "39",
-      "total_display": "2,301"
+      "monthly": 36,
+      "total": 2296,
+      "monthly_display": "36",
+      "total_display": "2,296"
     },
     "jwztumor": {
       "platform": "pypi",
       "version": "1.0.30",
-      "monthly": 38,
-      "total": 1384,
-      "monthly_display": "38",
-      "total_display": "1,384"
+      "monthly": 35,
+      "total": 1371,
+      "monthly_display": "35",
+      "total_display": "1,371"
     },
     "btsp-cli": {
       "platform": "pypi",
       "version": "0.1.0",
-      "monthly": 31,
+      "monthly": 30,
       "total": 162,
-      "monthly_display": "31",
+      "monthly_display": "30",
       "total_display": "162"
     },
     "eip-cli": {
@@ -107,9 +107,9 @@
       "platform": "pypi",
       "version": "0.2.2",
       "monthly": 30,
-      "total": 346,
+      "total": 344,
       "monthly_display": "30",
-      "total_display": "346"
+      "total_display": "344"
     }
   }
 }
